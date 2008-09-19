@@ -1,0 +1,32 @@
+<project name="Gridedit" default="build" basedir=".">
+	<description>
+		Builds the Gridedit application.
+	</description>
+	
+	<!-- set global properties for this build -->
+	<property name="src" location="src"/>
+	<property name="build" location="build"/>
+	<property name="compile" location="bin"/>
+	<property name="previous" location="${build}/previous"/>
+	<property name="manifest" location="Gridedit.mfst"/>
+	<property name="properties" location="gridedit.version.properties"/>
+	
+	<!-- get build and version info, incremented appropriately -->
+	<target name="version">
+		<propertyfile file="${properties}" comment="build and version info">
+			<entry key="build.date" type="date" pattern="yyyy-MM-dd HH:mm" value="now"/>
+			<entry key="build.number" default="1" type="int" operation="+" value="1"/>
+			<entry key="version.major" default="0" type="int"/>
+			<entry key="version.minor" default="1" type="int"/>
+		</propertyfile>
+		<property file="${properties}"/>
+		<echo message="This build: Gridedit ${version.major}.${version.minor} build ${build.number}"/>
+	</target>
+	
+	<target name="build" depends="version">
+		<mkdir dir="${build}"/>
+		<mkdir dir="${previous}"/>
+		<jar destfile="${build}/${ant.project.name}.jar" basedir="${compile}" manifest="${manifest}"/>
+		<copy file="${build}/${ant.project.name}.jar" tofile="${previous}/${ant.project.name} ${version.major}.${version.minor}b${build.number}.jar"/>
+	</target>
+</project>
