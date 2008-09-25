@@ -10,7 +10,6 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.awt.event.ContainerAdapter;
 import java.awt.event.ContainerEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -32,7 +31,6 @@ public class Screen extends JComponent {
 	private static final long serialVersionUID = 1L;
 	private boolean repaintable = true;
 	private SortedMap<Integer, List<JComponent>> layers = Collections.synchronizedSortedMap(new TreeMap<Integer, List<JComponent>>());
-	private BufferedImage cache;
 
 	public Screen() {
 		setLayout(new TileLayout());
@@ -92,8 +90,6 @@ public class Screen extends JComponent {
 	public void updateScreen() {
 		Skin currentSkin = Model.getActiveModel().getCurrentSkin();
 		Level currentLevel = Model.getActiveModel().getCurrentLevel();
-
-		updateDisplayCache();
 		
 		repaintable = false; //set the flag, so we don't get flickering
 
@@ -131,19 +127,5 @@ public class Screen extends JComponent {
 
 	public void addTile(Tile t) {
 		add(t, t.getTileLayer());
-	}
-	
-	public void paint(Graphics g) {
-		if(repaintable || cache == null)
-			super.paint(g);
-		else
-			g.drawImage(cache, 0, 0, this);
-	}
-	
-	public void updateDisplayCache() {
-		if(getWidth() > 0 && getHeight() > 0) {
-			cache = new BufferedImage(getWidth(), getHeight(), BufferedImage.TYPE_INT_ARGB);
-			paint(cache.getGraphics());
-		}
 	}
 }
