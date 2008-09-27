@@ -55,20 +55,33 @@ public class Gridscreen extends GridFrame {
 		} catch (Exception e) {
 			showErrorDialog(e);
 		}
-		
-		myScreen = new Screen();
-		counterPanel = new JPanel();
-		myGemCounter = new GemCounter();
-		myKeyCounter = new KeyCounter();
-		myKeyRelay = new KeyRelay(myController);
 
 		createAndShowGUI();
 		
 		pack();
 	}
 
-	protected void createAndShowGUI() {			
-		JPanel backing = new JPanel();
+	protected void createAndShowGUI() {
+		myScreen = new Screen();
+		counterPanel = new JPanel();
+		myGemCounter = new GemCounter();
+		myKeyCounter = new KeyCounter();
+		myKeyRelay = new KeyRelay(myController);
+		
+		JPanel backing = new JPanel() {
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = 1L;
+			
+			public Dimension getMinimumSize() {
+                return getPreferredSize();
+            }
+			
+            public Dimension getMaximumSize() {
+                return getPreferredSize();
+            }
+        };
 		backing.setLayout(new BoxLayout(backing, BoxLayout.Y_AXIS));
 		
 		myScreen.addKeyListener(myKeyRelay);
@@ -85,11 +98,18 @@ public class Gridscreen extends GridFrame {
 		counterPanel.add(myKeyCounter);
 		counterPanel.add(Box.createHorizontalGlue());
 		
-		backing.add(counterPanel);
-	
-		backing.setBorder(new EmptyBorder(5, 5, 5, 5));
+		myGemCounter.resizeToMinimum();
+		myKeyCounter.resizeToMinimum();		
 		
+		backing.add(counterPanel);	
+		backing.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setLayout(new BoxLayout(getContentPane(), BoxLayout.X_AXIS));
+		
+		add(Box.createHorizontalGlue());
 		add(backing);
+		add(Box.createHorizontalGlue());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addKeyListener(myKeyRelay);
 	}
