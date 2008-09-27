@@ -93,8 +93,6 @@ public class GemBlock extends Tile {
 				g.setFont(myFont);
 				fm = g.getFontMetrics();
 			}
-			
-			System.out.println("Font size: " + myFont.getSize());
 		}
 	}
 

@@ -37,8 +37,8 @@ public class GameOptionsDialog extends ParamsDialog {
 		
 		ParamSlider qualitySlider = new ParamSlider(Model.getActiveModel().getCurrentSkin().getTileSize() / 2, Model.getActiveModel().getCurrentSkin().getTileSize() - 1);
 		qualitySlider.setValue(Model.getActiveModel().getCurrentSkin().getTileSize() - Motion.PIXEL_SKIP);
-		qualitySlider.setMajorTickSpacing(Model.getActiveModel().getCurrentSkin().getTileSize() / 10);
-		qualitySlider.setMinorTickSpacing(qualitySlider.getMajorTickSpacing() / 2);
+		qualitySlider.setMinorTickSpacing(Model.getActiveModel().getCurrentSkin().getTileSize() / 20);
+		qualitySlider.setMajorTickSpacing(qualitySlider.getMinorTickSpacing() * 2);
 		Hashtable<Integer, JComponent> labelTable = new Hashtable<Integer, JComponent>();
 		labelTable.put(new Integer(qualitySlider.getMinimum()), new JLabel("Low"));
 		labelTable.put(new Integer(qualitySlider.getMaximum()), new JLabel("High"));
@@ -49,8 +49,8 @@ public class GameOptionsDialog extends ParamsDialog {
 		
 		ParamSlider motionDelaySlider = new ParamSlider(0, MAX_INTERRUPT_LENGTH);
 		motionDelaySlider.setValue((int)Motion.WAIT_TIME);
-		motionDelaySlider.setMajorTickSpacing(MAX_INTERRUPT_LENGTH / 5);
-		motionDelaySlider.setMinorTickSpacing(motionDelaySlider.getMajorTickSpacing() / 2);
+		motionDelaySlider.setMinorTickSpacing(MAX_INTERRUPT_LENGTH / 10);
+		motionDelaySlider.setMajorTickSpacing(motionDelaySlider.getMinorTickSpacing() * 2);
 		Hashtable<Integer, JComponent> labelTable2 = new Hashtable<Integer, JComponent>();
 		labelTable2.put(new Integer(motionDelaySlider.getMinimum()), new JLabel("Short"));
 		labelTable2.put(new Integer(motionDelaySlider.getMaximum()), new JLabel("Long"));
