@@ -1,5 +1,7 @@
 package gridmove.model.tiles;
 
+import gridmove.model.Skin;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -12,11 +14,15 @@ public class GemBlock extends Tile {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final float TEXT_SIZE_RATIO = .6f;
+	
 	private int numberGems;
 	private boolean isPassable;
+	private Font myFont = new Font("Dialog", Font.BOLD, 14);
 
 	/**
-	 * This is necessary so we can properly serialize the class - we need a consructor with no args
+	 * This is necessary so we can properly serialize the class - we need a constructor with no args
 	 */
 	@SuppressWarnings("unused")
 	private GemBlock() {
@@ -52,8 +58,7 @@ public class GemBlock extends Tile {
 				g.setColor(Color.BLACK);
 
 				String text = "" + numberGems;
-				Font font = new Font("Dialog", Font.BOLD, 14);
-				g.setFont(font);
+				g.setFont(myFont);
 				FontMetrics fm = g.getFontMetrics();
 
 				Rectangle2D bounds = getBounds();
@@ -61,6 +66,35 @@ public class GemBlock extends Tile {
 
 				g.drawString(text, (int)((bounds.getWidth() - textBounds.getWidth()) / 2), (int)((bounds.getHeight() - textBounds.getHeight()) / 2 + fm.getAscent()));
 			}
+		}
+	}
+	
+	@Override
+	public void loadFromSkin(Skin s) {
+		super.loadFromSkin(s);
+		
+		int textSize = (int) (s.getTileSize() * TEXT_SIZE_RATIO);
+		
+		Graphics g = getGraphics();
+		
+		if(g != null) {
+			g.setFont(myFont);
+			FontMetrics fm = g.getFontMetrics();
+			
+			while(fm.getAscent() > textSize + 2 || fm.getAscent() < textSize) {
+				//use the proportion to get a closer font size
+				float closerSize = myFont.getSize() * textSize / fm.getAscent();
+				
+				if(closerSize == myFont.getSize())
+					break;
+				
+				myFont = myFont.deriveFont(closerSize);
+
+				g.setFont(myFont);
+				fm = g.getFontMetrics();
+			}
+			
+			System.out.println("Font size: " + myFont.getSize());
 		}
 	}
 

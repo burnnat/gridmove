@@ -11,7 +11,7 @@ public class Gem extends Tile {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * This no-args constructor fufills the serialization
+	 * This no-args constructor fulfills the serialization
 	 */
 	public Gem() {
 		super();
