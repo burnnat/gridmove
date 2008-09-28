@@ -141,7 +141,9 @@ public class Gridedit extends GridFrame {
 					Level currentLevel = Model.getModelFor(Gridedit.this).getCurrentLevel();
 					Gridscreen previewFrame = new Gridscreen("Preview - " + currentLevel.getLevelTitle(), currentLevel.getLevelData());
 					previewFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-					new LevelPreviewParamsDialog(Model.getModelFor(previewFrame).getCurrentLevel(), currentLevel.getAvatar().getGridLocation()).setVisible(true);
+					Model previewModel = Model.getModelFor(previewFrame);
+					new LevelPreviewParamsDialog(previewModel.getCurrentLevel(), currentLevel.getAvatar().getGridLocation()).setVisible(true);
+					previewModel.setCurrentSkin(Model.getModelFor(Gridedit.this).getCurrentSkin());
 					previewFrame.getScreen().updateScreen();
 					previewFrame.updateGemCount();
 					previewFrame.updateKeyCount();

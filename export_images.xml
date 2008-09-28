@@ -1,0 +1,14 @@
+<project name="images" default="build" basedir=".">
+	<description>
+		Copies the current image set into a zip archive.
+	</description>
+	
+	<!-- set global properties for this build -->
+	<property name="basedir" location="images"/>
+	<property name="build" location="../Gridmove Build"/>
+	
+	<target name="build">
+		<mkdir dir="${build}"/>
+		<zip basedir="${basedir}" destfile="${build}/${ant.project.name}.zip"/>
+	</target>
+</project>
