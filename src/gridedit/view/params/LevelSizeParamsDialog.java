@@ -63,6 +63,7 @@ public class LevelSizeParamsDialog extends ParamsDialog {
 	 * @return A new level, or null if canceled.
 	 */
 	public Level getNewLevel() {
+		//TODO : Improper synchronization. Try wait/notify?
 		while(!isComplete){}
 		
 		if(actionCanceled)

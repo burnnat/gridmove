@@ -121,6 +121,7 @@ public class NodeTargetTransferHandler extends TransferHandler {
 		return true;
 	}
 
+	//TODO : Maybe this should be static inner class?
 	private class NodeTargetTransferable implements Transferable {
 		private NodeTarget[] myTarget;
 

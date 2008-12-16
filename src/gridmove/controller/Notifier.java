@@ -53,6 +53,7 @@ public class Notifier extends Thread {
 	}
 
 	public static void configureForFrame(GridFrame frame) {
+		//TODO : Fix lazy initialization for concurrency issues
 		if(singleton != null)
 			singleton.interrupt();
 

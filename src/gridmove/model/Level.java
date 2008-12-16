@@ -437,6 +437,7 @@ public class Level {
 			return toggleSets.get(name);
 	}
 
+	//TODO : Don't expose internal representation
 	public TargetSet[] getAllTargetSets() {
 		return targetSets;
 	}
